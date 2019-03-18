@@ -5,6 +5,7 @@
     <title>HaNgMaN</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -12,55 +13,84 @@
 </head>
 
 <body>
-    <header>
 
-    </header>
+    <header></header>
 
     <div class="container">
+
         <div class="jumbotron text-center">
-            <h1>oOoOo HaNgMaN oOoOo</h1>
+            <h1>oOoOo MeTaL HaNgMaN oOoOo</h1>
         </div>
 
         <div class="row">
+
             <div class="col-xs-12 col-md-8 text-center">
-                <h2 id="letsPlay">Press a key to begin!</h2>
-                <h3>Current word:</h3>
+
+                <h2 id="startGame">Press a key to begin!</h2>
+                <hr>
+                <h2>Current word:</h2>
                 <div id="currentWord"></div>
-                <br>
+
 
                 <div class="row">
-                    <div class="col-xs-12 col-md-6">
-                        <h3>Incorrect Guesses:</h3>
-                        <div id="wrongGuesses">--</div>
-                    </div>
 
                     <div class="col-xs-12 col-md-6">
-                        <h3>Guesses Left:</h3>
-                        <div id="guessesRemaing">??</div>
+
+                        <div class="card">
+
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item">
+                                    <h3>Incorrect Guesses:</h3>
+                                    <div id="wrongGuesses">--</div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <h3>Guesses Left:</h3>
+                                    <div id="guessesRemaing">??</div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
                     </div>
+
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-12 col-md-6">
-                        <h3>Victories:</h3>
-                        <div id="wins">0</div>
-                    </div>
 
                     <div class="col-xs-12 col-md-6">
-                        <h3>Defeats:</h3>
-                        <div id="losses">0</div>
+
+                        <div class="card">
+
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item">
+                                    <h3>Victories:</h3>
+                                    <div id="wins">0</div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <h3>Defeats:</h3>
+                                    <div id="losses">0</div>
+                                </li>
+                                
+                            </ul>
+
+                        </div>
+
                     </div>
 
                 </div>
+
             </div>
 
-
         </div>
+
     </div>
 
-    <footer>
-
-    </footer>
+    <footer></footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
