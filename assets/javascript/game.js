@@ -1,39 +1,53 @@
-var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// game object with initial states
+var metalGame = {
 
-var wordBank = [beryllium, sodium, magnesium, aluminium, potassium, calcium, scandium, titanium, vanadium, chromium, 
-                manganese, iron, cobalt, copper, nickle, zinc, gallium, rubidium, strontium, yttrium, zirconium, niobium,
-                 molybdenum, technetium, ruthenium, rhodium, palladium, silver, cadmium, indium, tin, cesium, barium, lanthanum,
-                  cerium, praseodymium, neodymium, promethium, terbium, samarium, europium, gadolinium, dysprosium, holmium, Erbium,
-                   Thulium, Ytterbium, Lutetium, Hafnium, Tantalum, Tungsten, Rhenium, Osmium, Iridium, Platinum, Gold, Mercury, Thallium,
-                    Lead, Bismuth, Polonium, Francium, Radium, Actinium, Thorium, Protactinium, Uranium, Neptunium, Plutonium, Americium, Curium,
-                     Berkelium, californium, Einsteinium, Fermium, Mendelevium, Nobelium, Lawrencium, Rutherfordium, Dubnium, Seaborgium, Bohrium,
-                      Hassium, Meitnerium, Darmstadtium, Roentgenium, Copernicium, Nihonium, Flerovium, Moscovium, Livermorium];
+    alphabet: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
 
-var gameStarted = false;
-var currentWord;
+    metalBank: [beryllium, sodium, magnesium, aluminium, potassium, calcium, scandium, titanium, vanadium, chromium,
+        manganese, iron, cobalt, copper, nickle, zinc, gallium, rubidium, strontium, yttrium, zirconium, niobium,
+        molybdenum, technetium, ruthenium, rhodium, palladium, silver, cadmium, indium, tin, cesium, barium, lanthanum,
+        cerium, praseodymium, neodymium, promethium, terbium, samarium, europium, gadolinium, dysprosium, holmium, Erbium,
+        Thulium, Ytterbium, Lutetium, Hafnium, Tantalum, Tungsten, Rhenium, Osmium, Iridium, Platinum, Gold, Mercury, Thallium,
+        Lead, Bismuth, Polonium, Francium, Radium, Actinium, Thorium, Protactinium, Uranium, Neptunium, Plutonium, Americium, Curium,
+        Berkelium, californium, Einsteinium, Fermium, Mendelevium, Nobelium, Lawrencium, Rutherfordium, Dubnium, Seaborgium, Bohrium,
+        Hassium, Meitnerium, Darmstadtium, Roentgenium, Copernicium, Nihonium, Flerovium, Moscovium, Livermorium],
+
+        gameRunning: false,
+        wins: 0,
+        losses: 0,
+
+
+        newWord: function () {
+            
+        }
+
+
+};
+
+
+
+
 var wordAsDashes;
 var guessesRemaing;
-var lettersGuessed;
+var wrongGuesses;
 var correctGuesses;
-var numWins = 0;
-var numLosses = 0;
 var getNewWord;
 var wordPlace;
 var wordCharArray = [];
 var dashesArray = [];
 
+
 function startGame() {
     gameStarted = true;
-    lettersGuessed = [];
+    wrongGuesses = [];
     correctGuesses = 0;
-    wordPlace = Math.floor(Math.random() * wordBank.length);
-    currentWord = wordBank[wordPlace];
+    currentWord = wordBank[Math.floor(Math.random() * wordBank.length)];
     guessesRemaing = 15 - currentWord.length;
     wordAsDashes = wordToDashes(currentWord);
     wordCharArray = currentWord.split('');
     dashesArray = wordAsDashes.split('');
     document.getElementById("currentWord").innerHTML = wordAsDashes;
-    document.getElementById("lettersGuessed").innerHTML = "--";
+    document.getElementById("wrongGuesses").innerHTML = "--";
     document.getElementById("guessesRemaing").innerHTML = guessesRemaing;
 }
 
@@ -49,14 +63,14 @@ function playGame(letter) {
             showLetter(letter);
         }
         else {
-            if (lettersGuessed.indexOf(letter) > -1) {
+            if (wrongGuesses.indexOf(letter) > -1) {
                 return;
             }
             else {
                 guessesRemaing--;
                 document.getElementById("guessesRemaing").innerHTML = guessesRemaing;
-                lettersGuessed.push(letter);
-                document.getElementById("wrongGuesses").innerHTML = lettersGuessed.join(' ');
+                wrongGuesses.push(letter);
+                document.getElementById("wrongGuesses").innerHTML = wrongGuesses.join(' ');
                 if (guessesRemaing == 0) {
                     alert("Guess you're not metal enough... The correct metal is " + currentWord);
                     startGame();

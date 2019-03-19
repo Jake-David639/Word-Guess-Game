@@ -1,10 +1,20 @@
 body, html {
     font-family: 'Audiowide', cursive;
+    background: gray;
 }
 
 @-ms-viewport{
     width: device-width;
 }
+
+.gameData {
+    background: gray;
+}
+
+footer {
+    margin-bottom: 70px;
+}
+
 
   /* // Extra small devices (portrait phones, less than 576px)
 @media only and screen (max-width: 575.98px) {
