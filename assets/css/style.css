@@ -1,10 +1,10 @@
+@-ms-viewport{
+    width: device-width;
+}
+
 body, html {
     font-family: 'Audiowide', cursive;
     background: gray;
-}
-
-@-ms-viewport{
-    width: device-width;
 }
 
 .gameData {
@@ -15,8 +15,13 @@ footer {
     margin-bottom: 70px;
 }
 
+.jumbotron {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
 
-  /* // Extra small devices (portrait phones, less than 576px)
+/* // Extra small devices (portrait phones, less than 576px)
 @media only and screen (max-width: 575.98px) {
     
 }
@@ -29,9 +34,13 @@ footer {
 // Medium devices (tablets, less than 992px)
 @media only and screen (max-width: 991.98px) {
     
-}
+} */
 
-// Large devices (desktops, less than 1200px)
-@media only and screen (max-width: 1199.98px) {
+/* Large devices (desktops, less than 1200px) */
+/* @media only and screen (max-width: 1199.98px) {
+
+    #headerPanel {
+        width: 60%;
+    }
 
 } */

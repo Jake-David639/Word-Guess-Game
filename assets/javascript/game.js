@@ -1,4 +1,4 @@
-// game object with initial states
+// game object with initial states alphabet array and word Bank array.
 var metalGame = {
 
     alphabet: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
@@ -12,124 +12,122 @@ var metalGame = {
         Berkelium, californium, Einsteinium, Fermium, Mendelevium, Nobelium, Lawrencium, Rutherfordium, Dubnium, Seaborgium, Bohrium,
         Hassium, Meitnerium, Darmstadtium, Roentgenium, Copernicium, Nihonium, Flerovium, Moscovium, Livermorium],
 
-        gameRunning: false,
-        wins: 0,
-        losses: 0,
+    gameRunning: false,
+    wins: 0,
+    losses: 0,
+    wrongGuesses: [],
+    remainingGuesses: ,
+    correctGuesses: ,
+    wordIndex: ,
+    wordAsArray: [],
+    wordObscured: '',
 
 
-        newWord: function () {
-            
+    newGame: function () {
+        this.gameRunning = true;
+        this.wrongGuesses = [];
+        this.correctGuesses = [];
+        this.remainingGuesses = 12;
+        this.correctGuesses = 0;
+        this.currentWord = this.metalBank[Math.floor(Math.random() * this.metalBank.length)].toLowerCase();
+
+        console.log(this.currentWord);
+
+        this.wordAsArray = this.currentWord.split();
+
+        console.log(this.wordAsArray);
+
+        this.wordObscured = this.wordToDashes(this.wordAsArray);
+
+        $("#wrongGuesses").text = "....";
+
+        $("#guessesRemaing").innerHTML = this.remaingGuesses;
+
+        $('#currentWord').innerHTML = this.wordObscured;
+
+    },
+
+    // generate a string of _ equal to word length to display
+    wordToDashes: function (word) {
+
+        var obscuredWord = "";
+        for (i = 0; i < this.word.length; i++) {
+            obscuredWord += "_ ";
         }
+        return obscuredWord;
+    },
+    // check for win condition
+    checkWin: function () {
+
+        if (this.wordObscured.indexOf("_") === -1) {
+
+            alert("Winner! You're so metal you RUST! The metal is " + this.currentWord);
+            this.wins++;
+            $("#wins").innerHTML = this.wins;
+            this.startGame();
+
+        }
+    },
+    // method to update the display with the letter if present
+    showLetter: function (letter) {
+
+        for (i = 0; i < this.currentWord.length; i++) {
+            if (letter.toLowerCase() == this.currentWord.charAt(i)) {
+                this.wordObscured[i * 2] = letter;
+                console.log(this.wordObscured);
+            }
+        }
+
+        $("#currentWord").innerHTML = this.wordObscured
+        this.checkWin();
+    },
+
+
+    // function that handles keystrokes
+    playGame: function (letter) {
+        var letter = letter.toLowerCase();
+
+        // check if key input is a letter
+        if (this.alphabet.indexOf(letter) > -1) {
+            if (this.wordAsArray.indexOf(letter) > -1) {
+                this.correctGuesses++;
+                this.showLetter(letter);
+            }
+            else if (this.wrongGuesses.indexOf(letter) > -1) {
+                return;
+            }
+            else {
+                this.guessesRemaing--;
+                $("#guessesRemaing").innerHTML = this.guessesRemaing;
+                this.wrongGuesses.push(letter);
+                $("#wrongGuesses").innerHTML = this.wrongGuesses.join(' ');
+                if (this.guessesRemaing == 0) {
+                    alert("Guess you're not metal enough... The correct metal is " + this.currentWord);
+                    this.newGame();
+                    this.losses++;
+                    $("#losses").innerHTML = this.losses;
+                }
+            }
+        }
+    }
 
 
 };
 
 
-
-
-var wordAsDashes;
-var guessesRemaing;
-var wrongGuesses;
-var correctGuesses;
-var getNewWord;
-var wordPlace;
-var wordCharArray = [];
-var dashesArray = [];
-
-
-function startGame() {
-    gameStarted = true;
-    wrongGuesses = [];
-    correctGuesses = 0;
-    currentWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-    guessesRemaing = 15 - currentWord.length;
-    wordAsDashes = wordToDashes(currentWord);
-    wordCharArray = currentWord.split('');
-    dashesArray = wordAsDashes.split('');
-    document.getElementById("currentWord").innerHTML = wordAsDashes;
-    document.getElementById("wrongGuesses").innerHTML = "--";
-    document.getElementById("guessesRemaing").innerHTML = guessesRemaing;
-}
-
-
-// event listener for keystrokes
-function playGame(letter) {
-    var letter = letter.toLowerCase();
-
-    // check if key input is a letter
-    if (alphabet.indexOf(letter) > -1) {
-        if (wordCharArray.indexOf(letter) > -1) {
-            correctGuesses++;
-            showLetter(letter);
-        }
-        else {
-            if (wrongGuesses.indexOf(letter) > -1) {
-                return;
-            }
-            else {
-                guessesRemaing--;
-                document.getElementById("guessesRemaing").innerHTML = guessesRemaing;
-                wrongGuesses.push(letter);
-                document.getElementById("wrongGuesses").innerHTML = wrongGuesses.join(' ');
-                if (guessesRemaing == 0) {
-                    alert("Guess you're not metal enough... The correct metal is " + currentWord);
-                    startGame();
-                    numLosses++;
-                    document.getElementById("losses").innerHTML = numLosses;
-                }
-            }
-        }
-    }
-}
-
-// display number of _ equal to word length
-function wordToDashes(word) {
-    var dashes = "";
-    for (i = 0; i < word.length - 1; i++) {
-        dashes += "_ ";
-    }
-    dashes += "_";
-    return dashes;
-}
-
-// shows letter in correct location if it's in current word
-function showLetter(letter) {
-
-    for (i = 0; i < currentWord.length; i++) {
-        if (letter == wordCharArray[i]) {
-            dashesArray[i * 2] = letter;
-            console.log(dashesArray);
-        }
-    }
-
-    document.getElementById("currentWord").innerHTML = dashesArray.join("");
-    checkWin();
-}
-
-function checkWin() {
-
-    if (dashesArray.indexOf("_") === -1) {
-
-        alert("Winner! You're so metal you RUST! The metal is " + currentWord);
-        winCount++;
-        document.getElementById("wins").innerHTML = winCount;
-        startGame();
-
-    }
-}
-
+// Event listener looking for keystrokes to pass to the game object.
 document.onkeyup = function (event) {
 
-    if (!gameStarted) {
+    if (metalGame.gameRunning == false) {
 
-        document.getElementById("startGame").innerHTML = "";
-        startGame();
-        document.getElementById("currentWord").innerHTML = wordAsDashes.split(",");
-        console.log(currentWord);
-        gameStarted = true;
+        metalGame.newGame();
+        $("#startGame").innerHTML = "Round started!";
+        $("#currentWord").innerHTML = metalGame.wordObscured;
+        console.log(metalGame.currentWord);
+        console.log(metalGame.wordObscured);
 
     } else {
 
-        playGame(event.key);
+        metalGame.playGame(event.key);
     }
 }
