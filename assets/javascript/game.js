@@ -31,17 +31,17 @@ var metalGame = {
 
         console.log(this.currentWord);
 
-        this.wordAsArray = this.currentWord.split();
+        this.wordAsArray = this.currentWord.split('');
 
         console.log(this.wordAsArray);
 
         this.wordObscured = this.wordToDashes(this.wordAsArray);
 
-        $("#wrongGuesses").text = "....";
+        document.getElementById("wrongGuesses").innerHTML = "--";
 
-        $("#guessesRemaing").innerHTML = this.remaingGuesses;
+        document.getElementById("guessesRemaing").innerHTML = this.remainingGuesses;
 
-        $('#currentWord').innerHTML = this.wordObscured;
+        document.getElementById('currentWord').innerHTML = this.wordObscured.join(' ');
 
     },
 
@@ -49,7 +49,7 @@ var metalGame = {
     wordToDashes: function (word) {
 
         var obscuredWord = [];
-        for (i = 0; i < this.word.length; i++) {
+        for (i = 0; i < word.length; i++) {
             obscuredWord[i] = "_";
         }
         return obscuredWord;
@@ -62,8 +62,8 @@ var metalGame = {
 
             alert("Winner! You're so metal you RUST! The metal is " + this.currentWord);
             this.wins++;
-            $("#wins").innerHTML = this.wins;
-            this.startGame();
+            document.getElementById("wins").innerHTML = this.wins;
+            this.newGame();
 
         }
     },
@@ -73,13 +73,13 @@ var metalGame = {
 
         for (i = 0; i < this.currentWord.length; i++) {
             if (letter.toLowerCase() == this.currentWord.charAt(i)) {
-                this.wordObscured[i * 2] = letter;
+                this.wordObscured[i] = letter;
                 console.log(this.wordObscured);
                 console.log(this.wordObscured.join(' '));
             }
         }
 
-        $("#currentWord").innerHTML = this.wordObscured.join(' ');
+        document.getElementById("currentWord").innerHTML = this.wordObscured.join(' ');
         this.checkWin();
     },
 
@@ -89,23 +89,29 @@ var metalGame = {
 
         // check if key input is a letter
         if (this.alphabet.indexOf(letter) > -1) {
+
             if (this.wordAsArray.indexOf(letter) > -1) {
+
                 this.correctGuesses++;
                 this.showLetter(letter);
-            }
-            else if (this.wrongGuesses.indexOf(letter) > -1) {
+
+            } else if (this.wrongGuesses.indexOf(letter) > -1) {  // does not decrement remaining guesses if letter was previously entered
+
                 return;
-            }
-            else {
-                this.guessesRemaing--;
-                $("#guessesRemaing").innerHTML = this.guessesRemaing;
+
+            } else {
+
+                this.remainingGuesses--;
+                document.getElementById("guessesRemaing").innerHTML = this.remainingGuesses;
                 this.wrongGuesses.push(letter);
-                $("#wrongGuesses").innerHTML = this.wrongGuesses.join(' ');
-                if (this.guessesRemaing == 0) {
+                document.getElementById("wrongGuesses").innerHTML = this.wrongGuesses.join(' ');
+
+                if (this.remainingGuesses == 0) {
+
                     alert("Guess you're not metal enough... The correct metal is " + this.currentWord);
-                    this.newGame();
                     this.losses++;
-                    $("#losses").innerHTML = this.losses;
+                    document.getElementById("losses").innerHTML = this.losses;
+                    this.newGame();
                 }
             }
         }
@@ -121,8 +127,8 @@ document.onkeyup = function (event) {
     if (metalGame.gameRunning == false) {
 
         metalGame.newGame();
-        $("#startGame").innerHTML = "Round started!";
-        $("#currentWord").innerHTML = metalGame.wordObscured.join(' ');
+        document.getElementById("startGame").innerHTML = "Round started!";
+        document.getElementById("currentWord").innerHTML = metalGame.wordObscured.join(' ');
         console.log(metalGame.currentWord);
         console.log(metalGame.wordObscured);
         console.log(metalGame.wordObscured.join(' '));
