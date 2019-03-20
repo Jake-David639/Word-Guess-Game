@@ -3,25 +3,23 @@ var metalGame = {
 
     alphabet: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
 
-    metalBank: [beryllium, sodium, magnesium, aluminium, potassium, calcium, scandium, titanium, vanadium, chromium,
-        manganese, iron, cobalt, copper, nickle, zinc, gallium, rubidium, strontium, yttrium, zirconium, niobium,
-        molybdenum, technetium, ruthenium, rhodium, palladium, silver, cadmium, indium, tin, cesium, barium, lanthanum,
-        cerium, praseodymium, neodymium, promethium, terbium, samarium, europium, gadolinium, dysprosium, holmium, Erbium,
-        Thulium, Ytterbium, Lutetium, Hafnium, Tantalum, Tungsten, Rhenium, Osmium, Iridium, Platinum, Gold, Mercury, Thallium,
-        Lead, Bismuth, Polonium, Francium, Radium, Actinium, Thorium, Protactinium, Uranium, Neptunium, Plutonium, Americium, Curium,
-        Berkelium, californium, Einsteinium, Fermium, Mendelevium, Nobelium, Lawrencium, Rutherfordium, Dubnium, Seaborgium, Bohrium,
-        Hassium, Meitnerium, Darmstadtium, Roentgenium, Copernicium, Nihonium, Flerovium, Moscovium, Livermorium],
+    metalBank: ['beryllium', 'sodium', 'magnesium', 'aluminium', 'potassium', 'calcium', 'scandium', 'titanium', 'vanadium', 'chromium',
+        'manganese', 'iron', 'cobalt', 'copper', 'nickle', 'zinc', 'gallium', 'rubidium', 'strontium', 'yttrium', 'zirconium', 'niobium',
+        'molybdenum', 'technetium', 'ruthenium', 'rhodium', 'palladium', 'silver', 'cadmium', 'indium', 'tin', 'cesium', 'barium', 'lanthanum',
+        'cerium', 'praseodymium', 'neodymium', 'promethium', 'terbium', 'samarium', 'europium', 'gadolinium', 'dysprosium', 'holmium', 'erbium',
+        'thulium', 'ytterbium', 'lutetium', 'hafnium', 'tantalum', 'tungsten', 'rhenium', 'osmium', 'iridium', 'platinum', 'gold', 'mercury', 'thallium',
+        'lead', 'bismuth', 'polonium', 'francium', 'radium', 'actinium', 'thorium', 'protactinium', 'uranium', 'neptunium', 'plutonium', 'americium', 'curium',
+        'berkelium', 'californium', 'einsteinium', 'fermium', 'mendelevium', 'nobelium', 'lawrencium', 'rutherfordium', 'dubnium', 'seaborgium', 'bohrium',
+        'hassium', 'meitnerium', 'darmstadtium', 'roentgenium', 'copernicium', 'nihonium', 'flerovium', 'moscovium', 'livermorium'],
 
     gameRunning: false,
     wins: 0,
     losses: 0,
     wrongGuesses: [],
-    remainingGuesses: ,
-    correctGuesses: ,
-    wordIndex: ,
+    remainingGuesses: 12,
+    correctGuesses: 0,
     wordAsArray: [],
-    wordObscured: '',
-
+    wordObscured: [],
 
     newGame: function () {
         this.gameRunning = true;
@@ -29,7 +27,7 @@ var metalGame = {
         this.correctGuesses = [];
         this.remainingGuesses = 12;
         this.correctGuesses = 0;
-        this.currentWord = this.metalBank[Math.floor(Math.random() * this.metalBank.length)].toLowerCase();
+        this.currentWord = this.metalBank[Math.floor(Math.random() * this.metalBank.length)];
 
         console.log(this.currentWord);
 
@@ -47,15 +45,16 @@ var metalGame = {
 
     },
 
-    // generate a string of _ equal to word length to display
+    // generate an array of _ equal to word length
     wordToDashes: function (word) {
 
-        var obscuredWord = "";
+        var obscuredWord = [];
         for (i = 0; i < this.word.length; i++) {
-            obscuredWord += "_ ";
+            obscuredWord[i] = "_";
         }
         return obscuredWord;
     },
+
     // check for win condition
     checkWin: function () {
 
@@ -68,6 +67,7 @@ var metalGame = {
 
         }
     },
+
     // method to update the display with the letter if present
     showLetter: function (letter) {
 
@@ -75,15 +75,15 @@ var metalGame = {
             if (letter.toLowerCase() == this.currentWord.charAt(i)) {
                 this.wordObscured[i * 2] = letter;
                 console.log(this.wordObscured);
+                console.log(this.wordObscured.join(' '));
             }
         }
 
-        $("#currentWord").innerHTML = this.wordObscured
+        $("#currentWord").innerHTML = this.wordObscured.join(' ');
         this.checkWin();
     },
 
-
-    // function that handles keystrokes
+    // function that handles keystroke input
     playGame: function (letter) {
         var letter = letter.toLowerCase();
 
@@ -122,9 +122,10 @@ document.onkeyup = function (event) {
 
         metalGame.newGame();
         $("#startGame").innerHTML = "Round started!";
-        $("#currentWord").innerHTML = metalGame.wordObscured;
+        $("#currentWord").innerHTML = metalGame.wordObscured.join(' ');
         console.log(metalGame.currentWord);
         console.log(metalGame.wordObscured);
+        console.log(metalGame.wordObscured.join(' '));
 
     } else {
 
