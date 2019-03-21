@@ -1,3 +1,11 @@
+var victorySong = document.createElement("audio");
+
+victorySong.setAttribute("src", "assets/Chemical_Calisthenics.m4a");
+
+$(".pause-button").on("click", function() {
+    victorySong.pause();
+});
+
 // game object with initial states alphabet array and word Bank array.
 var metalGame = {
 
@@ -63,6 +71,7 @@ var metalGame = {
             alert("Winner! You're so metal you RUST! The metal is " + this.currentWord);
             this.wins++;
             document.getElementById("wins").innerHTML = this.wins;
+            victorySong.play();
             this.newGame();
 
         }
